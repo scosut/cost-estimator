@@ -1,0 +1,44 @@
+<%
+form_heading     = "Add Group"
+form_description = "Complete this form to enter a new group."
+form_action      = "/groups"
+form_submit      = "Add"
+
+if (@page == "edit") then
+  form_heading     = "Edit Group"
+  form_description = "Complete this form to update an existing group."
+  form_action      = "/groups/edit"
+	form_submit      = "Update"
+end
+%>
+
+<section id="form">
+	<div class="form-group">
+		<h3><%= form_heading %></h3>
+		<p><%= form_description %></p>
+	</div>
+
+	<form action="<%= form_action %>" method="post">
+		<% if (@errors.length > 0) then %>
+		<div class="form-errors">
+			Errors:
+			<ul>
+				<% @errors.each do |error| %>
+				<li><%= error %></li>
+				<% end %>
+			</ul>
+		</div>
+		<% end %>
+	
+		<div class="form-group">
+			<label for="group">Group Name:</label>
+			<input type="text" id="group" name="group" value="<%= @group.name %>">
+		</div>
+
+		<div class="form-group">			
+			<button type="submit" class="btn"><%= form_submit %></button>
+		</div>
+		
+		<input type="hidden" id="groupId" name="groupId" value="<%= @group.id %>">
+	</form>
+</section>

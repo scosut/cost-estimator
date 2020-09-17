@@ -1,0 +1,88 @@
+/* navigation styles */
+#nav {
+	align-items: center;
+	background: linear-gradient(to bottom, rgba($nav-primary, 0.67), rgba($nav-primary, 0.67));
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 13rem;
+	padding: 2rem 1.5rem;
+	
+	@include atMedium  {
+		flex-direction: row;
+	}
+	
+	.nav-logo {
+		color: $text-secondary;
+		font-family: $font-serif;
+		font-size: 2rem;
+		line-height: 0.9;
+		
+		@include atMedium {
+			font-size: 2.2rem;
+		}
+	
+		img {
+			margin-right: 1.8rem;
+			width: 6rem;
+			
+			@include atMedium {
+				margin-right: 2.5rem;
+			}
+		}
+	}
+	
+	hr {
+		background: $text-secondary;
+		border: none;	
+		height: 0.1rem;
+		margin: 2rem 0;
+		width: 100%;
+		
+		@include atMedium {
+			display: none;
+		}
+	}
+	
+	ul {
+		list-style: none;
+		
+		li {
+			display: inline-block;
+			margin-right: 1.5rem;
+			margin-right: 1.5rem;
+			
+			@include atSmall {
+				margin-right: 2rem;
+			}
+			
+			&:last-child {
+				margin-right: 0;
+			}
+			
+			a {
+				border-bottom: 0.1rem solid transparent;
+				color: $text-secondary;
+				font-size: 1.6rem;
+				padding-bottom: 0.1rem;
+				text-align: center;
+				transition: all 0.5s ease-in-out;
+				
+				@include atSmall {
+					font-size: 1.8rem;
+				}
+				
+				&:hover,
+				&.active,
+				&.active:hover {
+					border-bottom: 0.1rem solid $icon-secondary;
+					color: $icon-secondary;
+				}
+				
+				i {
+					display: block;
+				}
+			}
+		}
+	}
+}

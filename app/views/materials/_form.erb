@@ -1,0 +1,85 @@
+<%
+form_heading     = "Add Material"
+form_description = "Complete this form to enter a new material."
+form_action      = "/materials"
+form_submit      = "Add"
+
+if (@page == "edit") then
+  form_heading     = "Edit Material"
+  form_description = "Complete this form to update an existing material."
+  form_action      = "/materials/edit"
+	form_submit      = "Update"
+end
+	
+@groups = @groups.as_json
+@groups << {"id" => "new", "name" => "New"}
+%>
+
+<section id="form">
+	<div class="form-group">
+		<h3><%= form_heading %></h3>
+		<p><%= form_description %></p>
+	</div>
+
+	<form action="<%= form_action %>" method="post">
+		<% if (@errors.length > 0) then %>
+		<div class="form-errors">
+			Errors:
+			<ul>
+				<% @errors.each do |error| %>
+				<li><%= error %></li>
+				<% end %>
+			</ul>
+		</div>
+		<% end %>
+	
+		<div class="form-group">
+			<label for="group">Material Group:</label>
+			<select id="group" name="group">
+				<option value="">(select a group)</option>
+				<% @groups.each do |group| %>
+				<option value="<%= group["id"] %>"<%= if (@group.to_s == group["id"].to_s) then " selected" end %>><%= group["name"] %></option>
+				<% end %>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="newGroup">New Group:</label>
+			<input type="text" id="newGroup" name="newGroup" value="<%= @newGroup %>">
+		</div>
+
+		<div class="form-group">
+			<label for="material">Material Name:</label>
+			<input type="text" id="material" name="material" value="<%= @material.name %>">
+		</div>
+
+		<div class="form-group">
+			<label for="quantityY">Is quantity required for calculations?</label>
+			<input type="radio" id="quantityY" name="quantity" value="yes"<%= if (@material.id && @material.quantity == "yes") then " checked" end %>>
+			<label for="quantityY">
+				<div class="radio-circle">
+				<span></span>
+				</div>Yes
+			</label>
+			<input type="radio" id="quantityN" name="quantity" value="no"<%= if (@material.id && @material.quantity == 'no') then " checked" end %>>
+			<label for="quantityN">
+				<div class="radio-circle">
+				<span></span>
+				</div>No
+			</label>
+		</div>
+
+		<div class="form-group">
+			<label for="cost">Cost:</label>
+			<input type="text" id="cost" name="cost" value="<%= format_currency(@material.cost) %>">
+		</div>
+
+		<div class="form-group">			
+			<button type="submit" class="btn"><%= form_submit %></button>
+		</div>
+		
+		<input type="hidden" id="materialId" name="materialId" value="<%= @material.id %>">
+	</form>
+</section>
+
+<script src="/js/material.js"></script>

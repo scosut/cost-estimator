@@ -1,0 +1,52 @@
+<% 
+@page      = "groups" 
+page_count = @groups.each_slice(10).to_a.length
+%>
+<section id="dashboard">
+	<div class="dashboard-content">
+		<h3>Group List</h3>
+
+		<a href="/groups/new"><i class="fas fa-plus-circle" title="add"></i></a>
+		
+		<% @groups.each_slice(10) do |part| %>
+		<table class="pg">
+			<thead>
+				<tr>
+					<th>Group</th>
+					<th class="text-right">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% part.each do |p| %>
+				<tr>
+					<td><%= p.name %></td>
+					<td class="text-right">
+						<a href="/groups/edit/<%= p.id %>">
+							<i class="fas fa-pencil-alt" title="edit"></i>
+						</a>
+						<form action="/groups/delete" method="post">
+            	<input type="hidden" id="groupId" name="groupId" value="<%= p.id %>" />
+            	<button type="submit">
+            		<i class="far fa-trash-alt" title="delete"></i>
+            	</button>
+          	</form>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% end %>
+		
+		<% if (page_count > 1) then %>
+		<ul class="dashboard-pages">
+			<% (1..page_count).each do |p| %>
+				<li><a href="#"><%= p %></a></li>
+			<% end %>
+		</ul>
+		<% end %>
+	</div>
+</section>
+
+<% if (page_count > 1) then %>
+<script src="/js/paging.js"></script>
+<% end %>

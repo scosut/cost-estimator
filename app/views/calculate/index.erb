@@ -1,0 +1,91 @@
+<% @page = "calculate" %>
+
+<section id="form">
+	<div class="form-group">
+		<h3>Calculate Cost</h3>
+		<p>Complete this form to determine manufacturing costs.</p>
+	</div>
+
+	<form id="frmCalculate">
+		<div class="form-group">
+			<label for="quantity">Quantity:</label>
+			<input type="text" id="quantity" name="quantity">
+		</div>
+
+		<div id="materials-page">			
+			<div class="form-group main-heading">
+				<h4>Materials:</h4>
+				<div class="all-wrapper">
+					<a id="materials-select" href="">Select All</a>
+					<a id="materials-clear" href="">Clear All</a>
+				</div>
+			</div>
+			
+			<% 
+			counter = 1
+			@groups.each do |group| 
+			%>
+			<div class="form-group sub-heading">
+				<h5><%= group.name %></h5>
+				<% group.materials.each do |material| %>
+				<input type="checkbox" id="materials<%= counter %>" name="materials<%= counter %>" value="<%= material.cost %>">
+				<label for="materials<%= counter %>">
+					<div class="checkbox-<%= if (material.quantity == 'yes') then 'quantity-' end %>wrapper">
+						<span class="checkbox-square">
+							<i class="fas fa-check"></i>
+						</span>
+						<span class="checkbox-text"><%= material.name %></span>
+						<% if (material.quantity == "yes") then %>
+						<select id="materials<%= counter %>Qty">
+							<% (1..10).each do |num| %>
+							<option><%= num %></option>
+							<% end %>
+						</select>
+						<% end %>
+					</div>
+				</label>
+				<% 
+				counter += 1
+				end 
+				%>
+			</div>
+		<% end %>
+		</div>
+
+		<div id="tasks-page">
+			<div class="form-group main-heading">
+				<h4>Tasks:</h4>
+				<div class="all-wrapper">
+					<a id="tasks-select" href="">Select All</a>
+					<a id="tasks-clear" href="">Clear All</a>
+				</div>
+			</div>
+
+			<div class="form-group no-heading">
+				<% 
+				counter = 1
+				@tasks.each do |task| %>
+				<input type="checkbox" id="tasks<%= counter %>" name="tasks<%= counter %>" value="<%= [task.minutes, task.seconds, task.rate].join(';;;') %>">
+				<label for="tasks<%= counter %>">
+					<div class="checkbox-wrapper">
+						<span class="checkbox-square">
+							<i class="fas fa-check"></i>
+						</span>
+						<span class="checkbox-text"><%= task.name %></span>
+					</div>
+				</label>
+				<% 
+				counter += 1
+				end 
+				%>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<button id="btn1" type="button" class="btn">Next</button>
+			<button id="btn2" type="button" class="btn">Calculate</button>
+		</div>
+	</form>
+</section>
+	
+<script src="/js/calculate.js"></script>

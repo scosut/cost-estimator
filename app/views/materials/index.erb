@@ -1,0 +1,56 @@
+<% 
+@page      = "materials" 
+page_count = @materials.each_slice(10).to_a.length
+%>
+<section id="dashboard">
+	<div class="dashboard-content">
+		<h3>Material List</h3>
+
+		<a href="/materials/new"><i class="fas fa-plus-circle" title="add"></i></a>
+		
+		<% @materials.each_slice(10) do |part| %>
+		<table class="pg">
+			<thead>
+				<tr>
+					<th>Group</th>
+					<th>Name</th>
+					<th class="text-right">Cost</th>
+					<th class="text-right">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% part.each do |p| %>
+				<tr>
+					<td><%= p.group.name %></td>
+					<td><%= p.name %></td>
+					<td class="text-right"><%= format_currency(p.cost) %></td>
+					<td class="text-right">
+						<a href="/materials/edit/<%= p.id %>">
+							<i class="fas fa-pencil-alt" title="edit"></i>
+						</a>
+						<form action="/materials/delete" method="post">
+            	<input type="hidden" id="materialId" name="materialId" value="<%= p.id %>" />
+            	<button type="submit">
+            		<i class="far fa-trash-alt" title="delete"></i>
+            	</button>
+          	</form>
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<% end %>
+		
+		<% if (page_count > 1) then %>
+		<ul class="dashboard-pages">
+			<% (1..page_count).each do |p| %>
+				<li><a href="#"><%= p %></a></li>
+			<% end %>
+		</ul>
+		<% end %>
+	</div>
+</section>
+
+<% if (page_count > 1) then %>
+<script src="/js/paging.js"></script>
+<% end %>

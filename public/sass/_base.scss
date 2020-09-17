@@ -1,0 +1,32 @@
+/* base styles */
+html {
+  font-size: 10px;
+  height: 100%;
+}
+
+body {
+  color: $text-primary;
+  font-family: $font-sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.2;
+	
+	&.dashboard-body {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: normal;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	background: transparent;
+	border: none;
+	font: inherit;
+}

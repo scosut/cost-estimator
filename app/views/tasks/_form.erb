@@ -1,0 +1,62 @@
+<%
+form_heading     = "Add Task"
+form_description = "Complete this form to enter a new task."
+form_action      = "/tasks"
+form_submit      = "Add"
+
+if (@page == "edit") then
+  form_heading     = "Edit Tasks"
+  form_description = "Complete this form to update an existing task."
+  form_action      = "/tasks/edit"
+	form_submit      = "Update"
+end
+%>
+
+<section id="form">
+	<div class="form-group">
+		<h3><%= form_heading %></h3>
+		<p><%= form_description %></p>
+	</div>
+
+	<form action="<%= form_action %>" method="post">
+		<% if (@errors.length > 0) then %>
+		<div class="form-errors">
+			Errors:
+			<ul>
+				<% @errors.each do |error| %>
+				<li><%= error %></li>
+				<% end %>
+			</ul>
+		</div>
+		<% end %>
+		
+		<div class="form-group">
+				<label for="task">Task Name:</label>
+				<input type="text" id="task" name="task" value="<%= @task.name %>">
+			</div>
+			
+			<div class="form-group">
+				<label for="minutes">Minutes:</label>
+				<input type="text" id="minutes" name="minutes" value="<%= @task.minutes %>">
+			</div>
+			
+			<div class="form-group">
+				<label for="seconds">Seconds:</label>
+				<input type="text" id="seconds" name="seconds" value="<%= @task.seconds %>">
+			</div>
+			
+			<div class="form-group">
+				<label for="rate">Rate:</label>
+				<input type="text" id="rate" name="rate" value="<%= format_currency(@task.rate) %>">
+			</div>
+
+			<div class="form-group">			
+				<button type="submit" class="btn"><%= form_submit %></button>
+			</div>
+			
+			<input type="hidden" id="taskId" name="taskId" value="<%= @task.id %>">
+	</form>
+</section>
+
+
+<script src="/js/task.js"></script>
