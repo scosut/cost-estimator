@@ -1,5 +1,4 @@
 <%
-bdy_class = @page == "groups" || @page == "materials" || @page == "tasks" ? " class=\"dashboard-body\"" : ""
 hdr_class = @page == "home" ? " class=\"fadeIn\"" : " class=\"secondary\""
 nav_class = @page == "home" ? " class=\"fadeInDown\"" : ""
 pages     = { 
@@ -41,7 +40,7 @@ uses      = [
 	<link rel="stylesheet" href="/css/style.css">
 	<title>Cost Estimator | <%= @page.capitalize %></title>
 </head>
-<body<%= bdy_class %>>
+<body>
 	<header id="header"<%= hdr_class %>>
 		<nav id="nav"<%= nav_class %>>
 			<div class="nav-logo">
